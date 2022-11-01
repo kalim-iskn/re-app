@@ -1,0 +1,8 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Upload employees file{% endblock %}
+
+{% block content %}
+    <h1>Upload employees file</h1>
+    {{ form(form, {'action': path('file_upload')}) }}
+{% endblock %}

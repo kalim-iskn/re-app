@@ -1,0 +1,6 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+file_upload:
+  path: /file/upload
+  controller: App\Controller\EmployeesFileUploadController::upload
