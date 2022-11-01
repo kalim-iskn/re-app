@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Contract\Repository\FileUploadRepository;
+use App\Contract\Entity\Repository\FileUploadRepository;
 use App\Entity\FileUpload;
 use App\Exception\EntityNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

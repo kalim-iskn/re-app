@@ -2,8 +2,8 @@
 
 namespace App\Service\Entity;
 
-use App\Contract\Entity\FileUploadService;
-use App\Contract\Repository\FileUploadRepository;
+use App\Contract\Entity\Service\FileUploadService;
+use App\Contract\Entity\Repository\FileUploadRepository;
 use FileUploadInfoDTO;
 
 class DoctrineFileUploadService implements FileUploadService

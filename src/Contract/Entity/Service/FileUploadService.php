@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contract\Entity;
+namespace App\Contract\Entity\Service;
 
 use FileUploadInfoDTO;
 

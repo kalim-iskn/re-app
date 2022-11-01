@@ -2,7 +2,7 @@
 
 namespace App\Job\Handler;
 
-use App\Contract\Entity\FileUploadService;
+use App\Contract\Entity\Service\FileUploadService;
 use App\Job\EmployeesFileProcessingMessage;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 

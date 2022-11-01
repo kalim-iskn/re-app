@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\Contract\EmployeesImportService;
-use App\Contract\Entity\FileUploadService as FileUploadEntityService;
+use App\Contract\Entity\Service\FileUploadService as FileUploadEntityService;
 use App\Contract\FileUploadService;
 use App\Job\EmployeesFileProcessingMessage;
 use FileUploadInfoDTO;
