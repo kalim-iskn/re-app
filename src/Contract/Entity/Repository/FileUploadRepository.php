@@ -2,7 +2,7 @@
 
 namespace App\Contract\Entity\Repository;
 
-use FileUploadInfoDTO;
+use App\DTO\Entity\FileUploadInfoDTO;
 
 interface FileUploadRepository
 {

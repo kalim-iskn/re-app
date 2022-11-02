@@ -8,5 +8,5 @@ interface EmployeesImportService
 {
     final public const EMPLOYEES_FILES_DIRECTORY = 'uploads/employees';
 
-    public function import(UploadedFile $file): void;
+    public function import(UploadedFile $file): int;
 }

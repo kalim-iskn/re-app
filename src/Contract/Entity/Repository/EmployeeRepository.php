@@ -3,10 +3,12 @@
 namespace App\Contract\Entity\Repository;
 
 use App\Exception\EntityNotFoundException;
-use EmployeeDTO;
+use App\DTO\Entity\EmployeeDTO;
 
 interface EmployeeRepository
 {
+    const PAGINATE_LIMIT = 25;
+
     /**
      * @throws EntityNotFoundException
      */
@@ -27,4 +29,11 @@ interface EmployeeRepository
      * @throws EntityNotFoundException
      */
     public function getByName(string $name): EmployeeDTO;
+
+    /**
+     * @return EmployeeDTO[]
+     */
+    public function paginate(int $offset, ?string $chiefName = null): array;
+
+    public function countAll(): int;
 }

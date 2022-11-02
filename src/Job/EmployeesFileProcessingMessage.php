@@ -4,11 +4,15 @@ namespace App\Job;
 
 class EmployeesFileProcessingMessage
 {
-    private int $fileUploadId;
+    const LINES_COUNT = 10000;
 
-    public function __construct(int $fileUploadId)
+    protected int $fileUploadId;
+    protected int $startLineNumber;
+
+    public function __construct(int $fileUploadId, int $startLineNumber)
     {
         $this->fileUploadId = $fileUploadId;
+        $this->startLineNumber = $startLineNumber;
     }
 
     /**
@@ -17,5 +21,13 @@ class EmployeesFileProcessingMessage
     public function getFileUploadId(): int
     {
         return $this->fileUploadId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStartLineNumber(): int
+    {
+        return $this->startLineNumber;
     }
 }

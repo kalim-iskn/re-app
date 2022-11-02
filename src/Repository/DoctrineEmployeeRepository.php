@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Contract\Entity\Repository\EmployeeRepository;
+use App\DTO\Entity\EmployeeDTO;
 use App\Entity\Employee;
 use App\Exception\EntityNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
-use EmployeeDTO;
 
 class DoctrineEmployeeRepository extends ServiceEntityRepository implements EmployeeRepository
 {
@@ -39,18 +40,12 @@ class DoctrineEmployeeRepository extends ServiceEntityRepository implements Empl
 
     public function getById(int $id): EmployeeDTO
     {
-        return $this->getEntity($id)->toDto();
+        return $this->getEntityBy(['id' => $id])->toDto();
     }
 
     public function getByName(string $name): EmployeeDTO
     {
-        $entity = $this->findOneBy(['name' => $name]);
-
-        if (!($entity instanceof Employee)) {
-            throw new EntityNotFoundException();
-        }
-
-        return $entity->toDto();
+        return $this->getEntityBy(['name' => $name])->toDto();
     }
 
     /**
@@ -58,7 +53,7 @@ class DoctrineEmployeeRepository extends ServiceEntityRepository implements Empl
      */
     protected function fromDtoToEntity(EmployeeDTO $dto): Employee
     {
-        $entity = $dto->id === null ? new Employee() : $this->getEntity($dto->id);;
+        $entity = $dto->id === null ? new Employee() : $this->getEntityBy(['id' => $dto->id]);;
 
         $entity->setName($dto->name);
 
@@ -69,12 +64,43 @@ class DoctrineEmployeeRepository extends ServiceEntityRepository implements Empl
         return $entity;
     }
 
+    public function paginate(int $offset, ?string $chiefName = null): array
+    {
+        $alias = "employee";
+        $query = $this->createQueryBuilder($alias);
+
+        if ($chiefName !== null) {
+            $query->where('employee.chief = :chief')
+                ->setParameter('chief', $this->getEntityBy(['name' => $chiefName]));
+        }
+
+        $query->orderBy("$alias.id")
+            ->setFirstResult($offset)
+            ->setMaxResults(self::PAGINATE_LIMIT);
+
+        $paginator = new Paginator($query);
+
+        $result = [];
+
+        /** @var Employee $entity */
+        foreach ($paginator as $entity) {
+            $result[] = $entity->toDto();
+        }
+
+        return $result;
+    }
+
+    public function countAll(): int
+    {
+        return $this->count([]);
+    }
+
     /**
      * @throws EntityNotFoundException
      */
-    protected function getEntity(int $id): Employee
+    protected function getEntityBy(array $params): Employee
     {
-        $entity = $this->find($id);
+        $entity = $this->findOneBy($params);
 
         if (!($entity instanceof Employee)) {
             throw new EntityNotFoundException();

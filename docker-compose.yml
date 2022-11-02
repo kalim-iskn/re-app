@@ -19,6 +19,21 @@ services:
     networks:
       - re_app_network
 
+  symfony_queue:
+    container_name: re_app_queue
+    build: .
+    command: sh -c "php bin/console messenger:consume async -vv --limit=3"
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - php_fpm
+    volumes:
+      - .:/opt/app
+      - /var/log/re_app/php:/var/log/app
+    networks:
+      - re_app_network
+
   database:
     container_name: re_app_db
     image: postgres:15rc1-alpine

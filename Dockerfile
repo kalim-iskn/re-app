@@ -34,4 +34,5 @@ USER www-data
 WORKDIR /opt/app
 
 CMD composer install && \
+    php bin/console doctrine:migrations:migrate && \
     php-fpm

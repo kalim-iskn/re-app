@@ -3,7 +3,7 @@
 namespace App\Contract\Entity\Service;
 
 use App\DTO\EmployeesFileLineDTO;
-use EmployeeDTO;
+use App\DTO\Entity\EmployeesPaginationDTO;
 
 interface EmployeeService
 {
@@ -12,4 +12,6 @@ interface EmployeeService
      * @return void
      */
     public function storeByNames(array $employeesFileLines): void;
+
+    public function get(int $page, ?string $chiefName = null): EmployeesPaginationDTO;
 }

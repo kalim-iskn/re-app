@@ -4,7 +4,7 @@ namespace App\DTO\Form;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class EmployeesFileUploadDTO
+class EmployeesFileUploadFormDTO
 {
     protected UploadedFile $file;
 

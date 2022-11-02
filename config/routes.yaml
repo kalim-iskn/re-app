@@ -4,3 +4,9 @@
 file_upload:
   path: /file/upload
   controller: App\Controller\EmployeesFileUploadController::upload
+file_check_status:
+  path: /file/{id}/status
+  controller: App\Controller\EmployeesFileUploadController::checkStatus
+employees_list:
+  path: /employees
+  controller: App\Controller\EmployeeController::index

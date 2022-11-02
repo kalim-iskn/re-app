@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\DTO\Form\EmployeesFileUploadDTO;
+use App\DTO\Form\EmployeesFileUploadFormDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -33,7 +33,7 @@ class EmployeesFileUploadType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => EmployeesFileUploadDTO::class
+            'data_class' => EmployeesFileUploadFormDTO::class
         ]);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use FileUploadInfoDTO;
+use App\DTO\Entity\FileUploadInfoDTO;
 
 /**
  * @ORM\Entity()

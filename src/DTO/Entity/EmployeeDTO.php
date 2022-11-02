@@ -1,5 +1,7 @@
 <?php
 
+namespace App\DTO\Entity;
+
 class EmployeeDTO
 {
     public ?int $id = null;

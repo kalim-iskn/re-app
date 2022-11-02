@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Employees file status{% endblock %}
+
+{% block content %}
+    <h1>Employees file status</h1>
+    <ul>
+        <li><b>Общее количество записей:</b> {{ fileInfo.linesCount }}</li>
+        <li><b>Обработано записей:</b> {{ fileInfo.processedLinesCount }}</li>
+        <li><b>Дата загрузки:</b> {{ fileInfo.createdAt|date("d.m.Y H:i") }}</li>
+    </ul>
+{% endblock %}

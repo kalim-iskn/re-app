@@ -4,7 +4,7 @@ namespace App\Service\Entity;
 
 use App\Contract\Entity\Service\FileUploadService;
 use App\Contract\Entity\Repository\FileUploadRepository;
-use FileUploadInfoDTO;
+use App\DTO\Entity\FileUploadInfoDTO;
 
 class FileUploadServiceImpl implements FileUploadService
 {

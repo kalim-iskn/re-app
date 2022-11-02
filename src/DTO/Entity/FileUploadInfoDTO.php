@@ -1,5 +1,9 @@
 <?php
 
+namespace App\DTO\Entity;
+
+use DateTime;
+
 class FileUploadInfoDTO
 {
     public ?int $id = null;

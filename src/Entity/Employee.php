@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use EmployeeDTO;
+use App\DTO\Entity\EmployeeDTO;
 
 /**
  * @ORM\Entity()

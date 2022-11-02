@@ -6,7 +6,7 @@ use App\Contract\EmployeesImportService;
 use App\Contract\Entity\Service\FileUploadService as FileUploadEntityService;
 use App\Contract\FileUploadService;
 use App\Job\EmployeesFileProcessingMessage;
-use FileUploadInfoDTO;
+use App\DTO\Entity\FileUploadInfoDTO;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -20,13 +20,14 @@ class EmployeesImportServiceImpl implements EmployeesImportService
         FileUploadService $fileUploadService,
         FileUploadEntityService $fileUploadEntityService,
         MessageBusInterface $messageBus
-    ) {
+    )
+    {
         $this->fileUploadService = $fileUploadService;
         $this->fileUploadEntityService = $fileUploadEntityService;
         $this->messageBus = $messageBus;
     }
 
-    public function import(UploadedFile $file): void
+    public function import(UploadedFile $file): int
     {
         $fileName = $this->fileUploadService->upload($file, self::EMPLOYEES_FILES_DIRECTORY);
 
@@ -35,7 +36,14 @@ class EmployeesImportServiceImpl implements EmployeesImportService
         $dto->linesCount = $this->getLinesCount($fileName);
         $dto = $this->fileUploadEntityService->store($dto);
 
-        $this->messageBus->dispatch(new EmployeesFileProcessingMessage($dto->id));
+        $countMessages = ceil($dto->linesCount / EmployeesFileProcessingMessage::LINES_COUNT);
+
+        foreach (range(1, $countMessages) as $messageNumber) {
+            $startLine = EmployeesFileProcessingMessage::LINES_COUNT * ($messageNumber - 1) + 1;
+            $this->messageBus->dispatch(new EmployeesFileProcessingMessage($dto->id, $startLine));
+        }
+
+        return $dto->id;
     }
 
     protected function getLinesCount(string $fileName): int

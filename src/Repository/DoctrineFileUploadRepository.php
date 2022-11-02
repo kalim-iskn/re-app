@@ -7,7 +7,7 @@ use App\Entity\FileUpload;
 use App\Exception\EntityNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use FileUploadInfoDTO;
+use App\DTO\Entity\FileUploadInfoDTO;
 
 class DoctrineFileUploadRepository extends ServiceEntityRepository implements FileUploadRepository
 {
