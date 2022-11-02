@@ -10,5 +10,5 @@ interface FileUploadService
 
     public function store(FileUploadInfoDTO $dto): FileUploadInfoDTO;
 
-    public function addProcessedLine(int $id): void;
+    public function addProcessedLines(int $id, int $count): void;
 }

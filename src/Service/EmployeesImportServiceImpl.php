@@ -12,8 +12,6 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class EmployeesImportServiceImpl implements EmployeesImportService
 {
-    final public const EMPLOYEES_DIRECTORY = 'uploads/employees';
-
     protected FileUploadService $fileUploadService;
     protected FileUploadEntityService $fileUploadEntityService;
     protected MessageBusInterface $messageBus;
@@ -30,7 +28,7 @@ class EmployeesImportServiceImpl implements EmployeesImportService
 
     public function import(UploadedFile $file): void
     {
-        $fileName = $this->fileUploadService->upload($file, self::EMPLOYEES_DIRECTORY);
+        $fileName = $this->fileUploadService->upload($file, self::EMPLOYEES_FILES_DIRECTORY);
 
         $dto = new FileUploadInfoDTO();
         $dto->fileName = $fileName;
@@ -42,7 +40,7 @@ class EmployeesImportServiceImpl implements EmployeesImportService
 
     protected function getLinesCount(string $fileName): int
     {
-        $file = self::EMPLOYEES_DIRECTORY . DIRECTORY_SEPARATOR . $fileName;
+        $file = self::EMPLOYEES_FILES_DIRECTORY . DIRECTORY_SEPARATOR . $fileName;
         $linesCount = 0;
         $handleFile = fopen($file, "r");
 

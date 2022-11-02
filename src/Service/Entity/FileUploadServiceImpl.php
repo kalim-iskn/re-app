@@ -6,7 +6,7 @@ use App\Contract\Entity\Service\FileUploadService;
 use App\Contract\Entity\Repository\FileUploadRepository;
 use FileUploadInfoDTO;
 
-class DoctrineFileUploadService implements FileUploadService
+class FileUploadServiceImpl implements FileUploadService
 {
     protected FileUploadRepository $fileUploadRepository;
 
@@ -25,11 +25,11 @@ class DoctrineFileUploadService implements FileUploadService
         return $this->fileUploadRepository->getById($id);
     }
 
-    public function addProcessedLine(int $id): void
+    public function addProcessedLines(int $id, int $count): void
     {
         $dto = $this->getById($id);
 
-        $dto->processedLinesCount++;
+        $dto->processedLinesCount += $count;
 
         $this->fileUploadRepository->save($dto);
     }

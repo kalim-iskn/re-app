@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FileUploadInfoDTO;
 
 /**
- * @ORM\Entity(repositoryClass=DoctrineFileUploadRepository::class)
+ * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks
  */
 class FileUpload
