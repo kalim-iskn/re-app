@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Contract\Entity\Repository\EmployeeRepository;
 use App\DTO\Entity\EmployeeDTO;
+use App\DTO\Entity\EmployeesPaginationDTO;
 use App\Entity\Employee;
 use App\Exception\EntityNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -53,7 +54,7 @@ class DoctrineEmployeeRepository extends ServiceEntityRepository implements Empl
      */
     protected function fromDtoToEntity(EmployeeDTO $dto): Employee
     {
-        $entity = $dto->id === null ? new Employee() : $this->getEntityBy(['id' => $dto->id]);;
+        $entity = $dto->id === null ? new Employee() : $this->getEntityBy(['id' => $dto->id]);
 
         $entity->setName($dto->name);
 
@@ -64,8 +65,10 @@ class DoctrineEmployeeRepository extends ServiceEntityRepository implements Empl
         return $entity;
     }
 
-    public function paginate(int $offset, ?string $chiefName = null): array
+    public function paginate(int $offset, ?string $chiefName = null): EmployeesPaginationDTO
     {
+        $data = new EmployeesPaginationDTO();
+
         $alias = "employee";
         $query = $this->createQueryBuilder($alias);
 
@@ -80,19 +83,14 @@ class DoctrineEmployeeRepository extends ServiceEntityRepository implements Empl
 
         $paginator = new Paginator($query);
 
-        $result = [];
-
         /** @var Employee $entity */
         foreach ($paginator as $entity) {
-            $result[] = $entity->toDto();
+            $data->items[] = $entity->toDto();
         }
 
-        return $result;
-    }
+        $data->count = $paginator->count();
 
-    public function countAll(): int
-    {
-        return $this->count([]);
+        return $data;
     }
 
     /**

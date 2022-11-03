@@ -2,8 +2,8 @@
 
 namespace App\Job\Handler;
 
+use App\Contract\EmployeesFileHandlerService;
 use App\Job\EmployeesFileProcessingMessage;
-use App\Service\EmployeesFileHandlerService;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

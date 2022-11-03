@@ -28,7 +28,7 @@ class EmployeesFileUploadController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $fileUploadId = $this->employeesImportService->import($fileUploadDto->getFile());
-            $this->redirectToRoute('file_check_status', ['id' => $fileUploadId]);
+            return $this->redirectToRoute('file_check_status', ['id' => $fileUploadId]);
         }
 
         return $this->renderForm('upload-employees.html.twig', [
@@ -40,7 +40,7 @@ class EmployeesFileUploadController extends AbstractController
     {
         $dto = $this->fileUploadService->getById($id);
 
-        return $this->renderForm('file-status.html.twig', [
+        return $this->render('file-status.html.twig', [
             'fileInfo' => $dto
         ]);
     }

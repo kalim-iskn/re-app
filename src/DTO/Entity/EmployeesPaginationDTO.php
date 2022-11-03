@@ -9,9 +9,9 @@ class EmployeesPaginationDTO
     /**
      * @var EmployeeDTO[] $items
      */
-    public array $items;
+    public array $items = [];
 
     public int $limit = EmployeeRepository::PAGINATE_LIMIT;
 
-    public int $count;
+    public int $count = 0;
 }

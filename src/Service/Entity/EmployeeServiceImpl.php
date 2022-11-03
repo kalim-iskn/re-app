@@ -50,16 +50,9 @@ class EmployeeServiceImpl implements EmployeeService
             throw new Exception("page invalid");
         }
 
-        $arDto = $this->employeeRepository->paginate(
+        return $this->employeeRepository->paginate(
             ($page - 1) * EmployeeRepository::PAGINATE_LIMIT,
             $chiefName
         );
-        $count = $this->employeeRepository->countAll();
-
-        $paginationDto = new EmployeesPaginationDTO();
-        $paginationDto->items = $arDto;
-        $paginationDto->count = $count;
-
-        return $paginationDto;
     }
 }

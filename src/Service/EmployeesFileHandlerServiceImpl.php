@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Contract\EmployeesFileHandlerService;
 use App\Contract\EmployeesImportService;
 use App\Contract\Entity\Service\EmployeeService;
 use App\Contract\Entity\Service\FileUploadService;
@@ -10,7 +11,7 @@ use App\Job\EmployeesFileProcessingMessage;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class EmployeesFileHandlerService
+class EmployeesFileHandlerServiceImpl implements EmployeesFileHandlerService
 {
     protected FileUploadService $fileUploadService;
     protected EmployeeService $employeeService;

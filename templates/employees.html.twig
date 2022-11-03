@@ -6,35 +6,41 @@
     <h1>Employees list</h1>
     <form method="get">
         <div class="mb-3">
-            <input type="text" class="form-control" value="{{ chiefName }}" placeholder="Имя начальника" name="chiefName">
+            <input type="text" class="form-control" value="{{ chiefName }}" placeholder="Имя начальника"
+                   name="chiefName">
         </div>
         <div class="mb-3">
             <input type="submit" class="btn btn-primary">
         </div>
     </form>
-    {% for employee in data.items %}
-        <ul>
-            <li><b>ID:</b> {{ employee.id }}</li>
-            <li><b>Имя:</b> {{ employee.name }}</li>
-            {% if employee.chief is not null %}
-                <li><b>Начальник:</b> {{ employee.chief.name }}</li>
-            {% endif %}
-        </ul>
-    {% endfor %}
+    {% if error is null %}
+        {% for employee in data.items %}
+            <ul>
+                <li><b>ID:</b> {{ employee.id }}</li>
+                <li><b>Имя:</b> {{ employee.name }}</li>
+                {% if employee.chief is not null %}
+                    <li><b>Начальник:</b> {{ employee.chief.name }}</li>
+                {% endif %}
+            </ul>
+        {% endfor %}
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            {% if currentPage > 1 %}
-                <li class="page-item"><a href="?page={{ currentPage - 1 }}" class="page-link"
-                                         href="#">{{ currentPage - 1 }}</a></li>
-            {% endif %}
-            <li class="page-item active"><a href="?page={{ currentPage }}" class="page-link"
-                                            href="#">{{ currentPage }}</a></li>
-            {% if currentPage != lastPage %}
-                <li class="page-item"><a href="?page={{ currentPage + 1 }}" class="page-link"
-                                         href="#">{{ currentPage + 1 }}</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-
+        {% if data.count > 0 %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if currentPage > 1 %}
+                        <li class="page-item"><a href="{{ previousPageLink }}" class="page-link"
+                                                 href="#">{{ currentPage - 1 }}</a></li>
+                    {% endif %}
+                    <li class="page-item active"><a href="{{ currentPageLink }}" class="page-link"
+                                                    href="#">{{ currentPage }}</a></li>
+                    {% if currentPage != lastPage %}
+                        <li class="page-item"><a href="{{ nextPageLink }}" class="page-link"
+                                                 href="#">{{ currentPage + 1 }}</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
 {% endblock %}
